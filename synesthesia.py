@@ -1,5 +1,6 @@
 import numpy as np
 import pyaudio
+import csv
 
 ######################################################################
 # Feel free to play with these numbers. Might want to change NOTE_MIN
@@ -87,3 +88,9 @@ while stream.is_active():
         print 'freq: {:7.2f} Hz     note: {:>3s} {:+.2f}'.format(
             freq, note_name(n0), n-n0)
 
+    temp_var = np.array([freq, note_name(n0), n-n0])
+    with open('notes.csv', 'ab') as csvfile:
+        spamwriter = csv.writer(csvfile, delimiter=' ',
+                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        # spamwriter.writerow(['Spam'] * 5 + ['Baked Beans'])
+        spamwriter.writerow(temp_var)
